@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+int glo=0;
 void print(int sol[], int n)
 {
     int i, j;
@@ -98,39 +99,33 @@ int nqrecursive(int row , int limit , int sol[] , int ch , int *ct)
      int i,j,k,s=0 , flag=0;
 
 
-
-    if(row==limit)
-    {
-    	if(ch==1)
-    		return 1;
-
-        return 0;
-    }
-
         for(j=0;j<limit;j++)
         {
-                flag=1;
-
+              if(glo==1)
+                        	printf("xxxxx\n");  
                 sol[row]=j;
                 if(place(sol , row)==1)
                 {
-                	flag=1;
-                }
-                else
-                {
-                	flag=0;
-                }               
+                	
 
-                if(flag==1)
-                {
-                        sol[row]=j;
+                	 sol[row]=j;
                         if(row==limit-1)
                         {
                         	*ct = *ct +1 ;
                         	
                            print(sol,limit);
+                           glo =1;
 
                         }
+
+                        if(row+1==limit)
+                        {
+                        	if(ch==1)
+                        		return 1;
+
+                        	return  0;
+                        }
+
                         if(nqrecursive(row+1,limit,sol,ch,ct)==1)
                         {
                             return 1;
@@ -139,11 +134,12 @@ int nqrecursive(int row , int limit , int sol[] , int ch , int *ct)
                         {
                             sol[row]=-1;
                         }
+
                 }
-
+                	
+              
         }
-
-
+        		
         return 0;
 
 }
